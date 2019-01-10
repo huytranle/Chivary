@@ -1,0 +1,11 @@
+Building/Point
+House 1
+Wall 1
+Barrack 2
+Transport 2
+Archery 3
+Statable 3
+Tower 4
+Dock 4
+Machinary 5
+Fort 6
