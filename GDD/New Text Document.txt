@@ -9,3 +9,82 @@ Tower 4
 Dock 4
 Machinary 5
 Fort 6
+
+Analysise
+1. Unit
+2. Building
+3. Team
+4. Square
+5. Dice
+dice point (DP)
+1. Unit
+1.1 Swordman
+Step: DP
+Attack: 1 DP square in Diagonal/Vertical/Horizonal
+Effect: Can go through river and friendly building only, attack on movement
+1.2 Archerman
+Step: x1 result point
+Direction: Vertical,Horizonal
+Attack: Base on DP in Diagonal/Vertical/Horizonal
+Effect: Can shoot twice in 1 turn
+Can go through river and friendly building only
+1.3 Transport
+Step: DPx2
+Direction: Diagonal,Vertical,Horizonal
+Effect: Cant go through enemy, buidling and cant attack
+But can pass water and pick up friendly unit on its way
+1.4 Horse
+Attack: 1 square in Diagonal/Vertical/Horizonal
+Direction: Diagonal,Vertical,Horizonal
+Step: DP+1
+Effect: Attack on movement, can do L jump by forfeit 1 turn
+1.5 Archery Horse
+Attack: Base on DP in Diagonal/Vertical/Horizonal
+Effect: Can shoot twice in 1 turn
+Direction: Diagonal,Vertical,Horizonal
+Step: DP+1
+1.6 Elephant
+Attack: 1 square in Diagonal/Vertical/Horizonal
+Effect: Has 2 HP and can attack 2 times
+Direction: Diagonal,Vertical,Horizonal
+Step: DP-1
+1.7 Archery Elephant
+Attack: Base on DP in Diagonal/Vertical/Horizonal
+Effect: Has 2 HP and can attack 3 times
+Direction: Diagonal,Vertical,Horizonal
+Step: DP-1
+1.8 Catapult
+Movement: DP-1
+Attack: Base on DPx2 in Diagonal/Vertical/Horizonal
+Direction: Diagonal,Horizonal
+Effect: Attack 1 square around on targeted area
+1.9 Spellcaster
+Attack: Convert enemy unit to friendly unit in DP in Diagonal/Vertical/Horizonal
+Step: DP
+Direction: Diagonal,Vertical,Horizonal
+1.10 Ballistias
+Attack: Base on DP in Diagonal/Vertical/Horizonal
+Direction: Diagonal,Horizonal
+Effect: Attack Object lies on attacking path
+1.11 Archery Ship
+Attack: Base on DP in Diagonal/Vertical/Horizonal
+Effect: Can shoot twice in 1 turn, move in water square only
+Direction: Diagonal,Vertical,Horizonal
+Step: DP+2
+1.12 Warship
+Attack: Base on DP in Diagonal/Vertical/Horizonal
+Effect: Can destroy all enemy on 2-square range by forfeit 1 turn, move in water square only
+Direction: Diagonal,Vertical,Horizonal
+Step: DP-1
+2. Buidling
+2.1 House
+Allow
+2.2 Wall
+2.3 
+Action Per Turn
+Attack
+Move
+Selfdestroy
+Flip attribute of unit
+Skip
+Creat

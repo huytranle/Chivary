@@ -1,0 +1,6 @@
+1. Demo board game in paper
+2. Desktop
+3. Server
+3. Android
+4. IOS
+5. ReActJs
