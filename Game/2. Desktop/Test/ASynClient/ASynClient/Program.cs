@@ -33,6 +33,18 @@ public class AsynchronousClient
     // The response from the remote device.  
     private static String response = String.Empty;
 
+    public static string GetLocalIPAddress()
+    {
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        throw new Exception("No network adapters with an IPv4 address in the system!");
+    }
     private static void StartClient()
     {
         // Connect to a remote device.  
@@ -41,7 +53,8 @@ public class AsynchronousClient
             // Establish the remote endpoint for the socket.  
             // The name of the   
             // remote device is "host.contoso.com".  
-            IPHostEntry ipHostInfo = Dns.GetHostEntry("host.contoso.com");
+            // IPHostEntry ipHostInfo = Dns.GetHostEntry("host.contoso.com");
+            IPHostEntry ipHostInfo = Dns.GetHostEntry("fe80::c8c0:7d6a:95a8:dfc4%5");
             IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
@@ -53,17 +66,32 @@ public class AsynchronousClient
             client.BeginConnect(remoteEP,
                 new AsyncCallback(ConnectCallback), client);
             connectDone.WaitOne();
+            StringBuilder cmd = new StringBuilder();
+            Console.Write("Input your name: ");
+            string name = Convert.ToString(Console.ReadLine());
+            while (cmd.Equals("ragequit") == false)
+            {
+                Console.Write("Say something:");
+                cmd.Append(Console.ReadLine());
+                Send(client, name + ": " + cmd.ToString());
+                sendDone.WaitOne();
+                cmd.Clear();
+
+                //Receive(client);
+                //receiveDone.WaitOne();
+            }
+
 
             // Send test data to the remote device.  
-            Send(client, "This is a test<EOF>");
-            sendDone.WaitOne();
+            //Send(client, "This is a test<EOF>");
+            //sendDone.WaitOne();
 
             // Receive the response from the remote device.  
-            Receive(client);
-            receiveDone.WaitOne();
+            //Receive(client);
+            //receiveDone.WaitOne();
 
             // Write the response to the console.  
-            Console.WriteLine("Response received : {0}", response);
+            //Console.WriteLine("Response received : {0}", response);
 
             // Release the socket.  
             client.Shutdown(SocketShutdown.Both);
@@ -73,28 +101,40 @@ public class AsynchronousClient
         catch (Exception e)
         {
             Console.WriteLine(e.ToString());
+            
         }
+        
     }
 
     private static void ConnectCallback(IAsyncResult ar)
     {
-        try
+        int bug = 0;
+        while (bug > -1)
         {
-            // Retrieve the socket from the state object.  
-            Socket client = (Socket)ar.AsyncState;
+            try
+            {
+                // Retrieve the socket from the state object. 
+                
+                Socket client = (Socket)ar.AsyncState;
 
-            // Complete the connection.  
-            client.EndConnect(ar);
+                // Complete the connection.  
+            
+                    client.EndConnect(ar);
+              
+             
 
-            Console.WriteLine("Socket connected to {0}",
-                client.RemoteEndPoint.ToString());
+                Console.WriteLine("Socket connected to {0}",
+                    client.RemoteEndPoint.ToString());
+                bug = 0;
+                // Signal that the connection has been made.  
+                connectDone.Set();
 
-            // Signal that the connection has been made.  
-            connectDone.Set();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                bug = 1;
+            }
         }
     }
 
@@ -173,7 +213,7 @@ public class AsynchronousClient
 
             // Complete sending the data to the remote device.  
             int bytesSent = client.EndSend(ar);
-            Console.WriteLine("Sent {0} bytes to server.", bytesSent);
+            //Console.WriteLine("Sent {0} bytes to server.", bytesSent);
 
             // Signal that all bytes have been sent.  
             sendDone.Set();

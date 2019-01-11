@@ -20,6 +20,18 @@ public class StateObject
 public class AsynchronousSocketListener
 {
     // Thread signal.  
+    public static string GetLocalIPAddress()
+    {
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        throw new Exception("No network adapters with an IPv4 address in the system!");
+    }
     public static ManualResetEvent allDone = new ManualResetEvent(false);
 
     public AsynchronousSocketListener()
@@ -31,9 +43,8 @@ public class AsynchronousSocketListener
         // Establish the local endpoint for the socket.  
         // The DNS name of the computer  
         // running the listener is "host.contoso.com".  
-        IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+        IPHostEntry ipHostInfo = Dns.GetHostEntry(GetLocalIPAddress());
         IPAddress ipAddress = ipHostInfo.AddressList[0];
-        Console.WriteLine(ipAddress);
         IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
         // Create a TCP/IP socket.  
@@ -90,40 +101,43 @@ public class AsynchronousSocketListener
 
     public static void ReadCallback(IAsyncResult ar)
     {
-        String content = String.Empty;
 
-        // Retrieve the state object and the handler socket  
-        // from the asynchronous state object.  
-        StateObject state = (StateObject)ar.AsyncState;
-        Socket handler = state.workSocket;
-
-        // Read data from the client socket.   
-        int bytesRead = handler.EndReceive(ar);
-
-        if (bytesRead > 0)
+        try
         {
-            // There  might be more data, so store the data received so far.  
-            state.sb.Append(Encoding.ASCII.GetString(
-                state.buffer, 0, bytesRead));
+            StringBuilder content = new StringBuilder();
 
-            // Check for end-of-file tag. If it is not there, read   
-            // more data.  
-            content = state.sb.ToString();
-            if (content.IndexOf("<EOF>") > -1)
+            // Retrieve the state object and the handler socket  
+            // from the asynchronous state object.  
+            StateObject state = (StateObject)ar.AsyncState;
+            Socket handler = state.workSocket;
+
+            // Read data from the client socket.   
+            int bytesRead = handler.EndReceive(ar);
+
+            if (bytesRead > 0)
             {
-                // All the data has been read from the   
-                // client. Display it on the console.  
-                Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
-                    content.Length, content);
-                // Echo the data back to the client.  
-                Send(handler, content);
-            }
-            else
-            {
+                // There  might be more data, so store the data received so far.  
+                // state.sb.Append();
+
+                // Check for end-of-file tag. If it is not there, read   
+                // more data.  
+                content.Append(Encoding.ASCII.GetString(
+                    state.buffer, 0, bytesRead));
+                Console.WriteLine(content);
+                content.Clear();
                 // Not all data received. Get more.  
                 handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                 new AsyncCallback(ReadCallback), state);
+
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Someone ragequit");
+        }
+        finally
+        {
+
         }
     }
 
