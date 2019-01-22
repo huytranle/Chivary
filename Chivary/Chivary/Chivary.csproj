@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B411C6A-C80A-4B72-BD6D-4887E264C348}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Chivary</RootNamespace>
+    <AssemblyName>Chivary</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\Buidling.cs" />
+    <Compile Include="Entity\Building\Armory.cs" />
+    <Compile Include="Entity\Building\Barrack.cs" />
+    <Compile Include="Entity\Building\Centre.cs" />
+    <Compile Include="Entity\Building\Dock.cs" />
+    <Compile Include="Entity\Building\House.cs" />
+    <Compile Include="Entity\Building\Stable.cs" />
+    <Compile Include="Entity\Building\Tower.cs" />
+    <Compile Include="Entity\Building\Transport.cs" />
+    <Compile Include="Entity\Building\Wall.cs" />
+    <Compile Include="Entity\Building\Workshop.cs" />
+    <Compile Include="Entity\Interface\Building_Interface.cs" />
+    <Compile Include="Entity\Interface\Unit_Interface.cs" />
+    <Compile Include="Entity\Unit\ArcherElephant.cs" />
+    <Compile Include="Entity\Unit\ArcherHorse.cs" />
+    <Compile Include="Entity\Unit\ArcherMan.cs" />
+    <Compile Include="Entity\Unit\ArcherShip.cs" />
+    <Compile Include="Entity\Unit\ArmoredArcherElephant.cs" />
+    <Compile Include="Entity\Unit\ArmoredWarElephant.cs" />
+    <Compile Include="Entity\Unit\Ballista.cs" />
+    <Compile Include="Entity\Unit\BattleShip.cs" />
+    <Compile Include="Entity\Unit\Cannon.cs" />
+    <Compile Include="Entity\Unit\WarElephant.cs" />
+    <Compile Include="Entity\Unit\WarHorse.cs" />
+    <Compile Include="Entity\Board.cs" />
+    <Compile Include="Entity\Dice.cs" />
+    <Compile Include="Entity\GameManager.cs" />
+    <Compile Include="Entity\Player.cs" />
+    <Compile Include="Entity\Square.cs" />
+    <Compile Include="Entity\Unit\SwordMan.cs" />
+    <Compile Include="Entity\Unit.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
